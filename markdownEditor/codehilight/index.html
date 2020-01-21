@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/vs2015.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-size: 1.5rem
+        }
+    </style>
+</head>
+<body>
+    <div>Bad Code</div>
+    <pre id="bad">
+        <code class="html"></code>
+    </pre>
+    <div>Good Code</div>
+    <pre id="good">
+        <code class="html"></code>
+    </pre>
+    <script src="highlight.pack.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        // const entities = {
+        //     '<': `&lt;`,
+        //     '>': `&gt;`,
+        //     '"': `&quot;`,
+        //     "'": `&apos;`,
+        //     '/': `&sol;`
+        // }
+        // const parseHtmlEntity = str =>{
+        //     return Object.keys(entities).reduce((acc,k)=>{
+        //         let reg = new RegExp(`${k}`,'g');
+        //         return acc.replace(reg,entities[k]);
+        //     },str);
+        // }
+        const parseHtmlEntity = str =>{
+            let encodedText = $("<div id='temp'></div>").text(str).html();
+            $('temp').remove();
+            return encodedText;
+        }
+        var str1 = `<p id="intro">New items on the menu today include <strong>caramel apple cider and breakfast crepes</p>.</strong>
+<p id="intro">The caramel apple cider is delicious.
+`;
+        var str2 = `<p class="intro">New items on the menu today include <strong>caramel apple cider and breakfast crepes</strong>.</p>
+<p class="intro">The caramel apple cider is delicious.</p>
+`;
+        $("#bad code").html(parseHtmlEntity(str1));
+        $("#good code").html(parseHtmlEntity(str2));
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
+</html>
